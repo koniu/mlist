@@ -1,0 +1,43 @@
+a:hover { color: #f00 }
+a:visited { color: #888 }
+a { text-decoration: none; color: white }
+body { 
+	background: #000; 
+	font-family: sans; 
+	font-weight: bold; 
+	line-height: 200%; 
+	font-size: 8pt; 
+	color: #333;
+}
+
+#minfo {
+    display: none;
+    opacity: 0.9;
+	font-size: 7.5pt;
+	font-weight: normal;
+	position: fixed;
+	top: 5px; bottom:5px; right:5px;
+	left: 500px;
+	border: solid 1px #333;
+	padding: 10px;
+	background: black;
+	overflow: auto;
+	color: #7D7762;
+	line-height: 120%;
+}
+
+#minfo_title {
+	font-size: 14pt;
+	font-weight: bold;
+	line-height: 200%;
+}
+.hx { color: #7F834B }
+.hx:hover { color: #7F834B }
+.hh { color: #333; }
+.tiny { font-size: 6.5pt}
+#links { font-size: 7pt; font-weight: bold }
+#stats { color: #335; font-size: 6.5pt; font-weight: normal }
+#cur { color: #0f0 }
+.hbig { font-size: 15pt; 
+	color: #7F834B
+}
