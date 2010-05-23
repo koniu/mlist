@@ -205,8 +205,8 @@ def movie_out(m):
     else:
         tt = ""
         url = ''
-    a = '<a href="%s" onmouseover="showinfo(\'%s\')" onmouseout="hideinfo()">%s</a>\
-        <sub>%s</sub><br>\n' % (url, tt, unicode(m['title'], enc,
+    a = '<a href="%s" onfocus="showinfo(\'%s\')" onmouseover="showinfo(\'%s\')" onmouseout="hideinfo()">%s</a>\
+        <sub>%s</sub><br>\n' % (url, tt, tt, unicode(m['title'], enc,
         'replace'),  m['year'])
     return a.encode(enc, 'replace')
 # }}}
