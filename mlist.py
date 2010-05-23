@@ -197,7 +197,7 @@ def movie_info(m):
           '<br><tr valign="top"><td class="hh">aka</td><td class="tiny">' +\
           unicode(string.join(getkey([db, 'akas']),"<br>")) + '</td></tr>\n' +\
           "</table>"
-    write_out(txt.encode(enc,'replace'),fn)
+    write_out(txt,fn)
 # }}}
 # {{{ movie_out
 def movie_out(m):
@@ -210,11 +210,11 @@ def movie_out(m):
     a = '<a href="%s" onfocus="showinfo(\'%s\')" onmouseover="showinfo(\'%s\')" onmouseout="hideinfo()">%s</a>\
         <sub>%s</sub><br>\n' % (url, tt, tt, unicode(m['title'], enc,
         'replace'),  m['year'])
-    return a.encode(enc, 'replace')
+    return a
 # }}}
 # {{{ group_out 
 def group_out(gr,mvs):
-    g = unicode(gr).encode(enc, 'replace')
+    g = unicode(gr)
     txt = "<tr valign='top'><td style='max-width: 200px'>"+ \
         "<a class='hx " + t.get('style', '') + "' name='" +g + "'>" + g + "</a> &nbsp;<sub>" + str(len(mvs)) + \
         "</sub>&nbsp;&nbsp;<br></td><td>\n"
@@ -237,7 +237,7 @@ def links_out():
 # {{{ write_out
 def write_out(s, fn):
     f = open(fn, "w")
-    f.write(s)
+    f.write(s.encode(enc, 'replace'))
     f.close()
 # }}}
 # {{{ movie_exists
