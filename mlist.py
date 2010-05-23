@@ -147,6 +147,15 @@ def alfanum(s):
     else:
         return '_'
 # }}}
+# {{{ decolonize
+def decolonize(s):
+    r = re.compile('^(.*?:?)(.*?)(::.*)?$')
+    try:
+        v = r.search(s).group(2)
+    except:
+        v = s
+    return v
+# }}}
 # {{{ group
 def group(key):
     grouped = {}
