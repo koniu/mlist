@@ -186,6 +186,8 @@ def movie_info(m):
           '<td align="right"><img src="%s"></td>' % getkey([db, 'cover url']) +\
           '</tr></table>' +\
           '\n<table>' +\
+          '<br><tr valign="top"><td class="hh">tagline</td><td>' +\
+          getkey([db, 'taglines'])[0] + '</td></tr>\n' +\
           '<br><tr valign="top"><td class="hh">plot</td><td>' +\
           getkey([db, 'plot'])[0] + '</td></tr>\n' +\
           '<br><tr valign="top"><td class="hh">tags</td><td class="tiny">' +\
