@@ -85,10 +85,12 @@ templates = {
     },
     'locations': {
         'grp_title': lambda m: getkey([m,'imdb','locations']),
+        'grp_title_mangler': lambda g: decolonize(g),
+        'link': lambda g: 'http://www.imdb.com/search/title?locations=' + g,
         'style': 'tiny'
     },
 }
-  # }}}
+# }}}
 # {{{ init
 
 # modules
@@ -161,22 +163,22 @@ def group(key):
     grouped = {}
     for m in movies:
         for g in key['grp_title'](m):
+            g = key.get('grp_title_mangler', lambda m: m)(g)
             if not(g in grouped):
                 grouped[g] = {}
                 grouped[g]['mvz'] = [m]
                 if g != "~":
                     grouped[g]['link'] = key.get('link', lambda g: "")(g)
-                #grouped[g] = { 'link': key.get('link', lambda g: "")(g), 'mvz': [m] }
             else:
                 if not (m in grouped[g].get('mvz',[])):
                     grouped[g]['mvz'].append(m)
     return grouped
 # }}}
 # {{{ linkify_list
-def linkify_list(l,f, delimiter=", "):
+def linkify_list(l,f, delimiter=", ", mangler=lambda s: s):
     txt = ""
     for w in l:
-        w = unicode(w)
+        w = mangler(unicode(w))
         txt = txt + '<a href="%s#%s">%s<a>%s' % (f, w, w, delimiter)
     return txt[0:len(txt)-len(delimiter)]
 # }}}
@@ -220,6 +222,8 @@ def movie_info(m):
           linkify_list(getkey([db, 'actors']), 'actors.html') + '</td></tr>\n' +\
           '<br><tr valign="top"><td class="hh">aka</td><td class="tiny">' +\
           unicode(string.join(getkey([db, 'akas']),"<br>")) + '</td></tr>\n' +\
+          '<br><tr valign="top"><td class="hh">locations</td><td class="tiny">' +\
+          linkify_list(getkey([db, 'locations']),'locations.html','<br>',decolonize) + '</td></tr>\n' +\
           "</table>"
     write_out(txt.encode(enc,'replace'), fn)
 # }}}
