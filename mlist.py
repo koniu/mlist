@@ -301,6 +301,8 @@ def runtime(m):
 log(now + '\n')
 # {{{ load pickes
 log("*** loading pickles: ")
+if not os.path.exists(PICKLES):
+    os.makedirs(PICKLES)
 for l in sorted(os.listdir(PICKLES)):
 #for l in ['_']:
     log(l)
@@ -355,6 +357,10 @@ log('*** generating stats')
 size = pread('du -sh '+DIR+' | cut -f1')
 stats = '<span id="stats">%s &nbsp; - &nbsp; total %s &nbsp; - &nbsp; size %s</span><br>'  % (now, str(len(movies)), size)
 log('\n')
+# }}}
+# {{{ create output dirs
+if not os.path.exists(OUTPUT+'/info'):
+    os.makedirs(OUTPUT+'/info')
 # }}}
 # {{{ copy static files
 log('*** copying static files\n')
