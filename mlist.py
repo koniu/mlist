@@ -168,7 +168,6 @@ def linkify_list(l,f, delimiter=", "):
     for w in l:
         w = unicode(w)
         txt = txt + '<a href="%s#%s">%s<a>%s' % (f, w, w, delimiter)
-    #txt = txt.rstrip(len(delimiter))
     return txt[0:len(txt)-len(delimiter)]
 # }}}
 # {{{ movie_info
