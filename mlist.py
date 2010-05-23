@@ -82,6 +82,10 @@ templates = {
         'grp_title': lambda m: [runtime(m)],
         'style': 'hbig'
     },
+    'locations': {
+        'grp_title': lambda m: getkey([m,'imdb','locations']),
+        'style': 'tiny'
+    },
 }
   # }}}
 # {{{ init
