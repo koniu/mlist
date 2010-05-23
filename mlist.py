@@ -25,7 +25,7 @@ templates = {
     },
     'director': {
         'grp_title': lambda m: getkey([m,'imdb','director']),
-        'sort': lambda m: getkey([m, 'year']),
+        'msort': { 'key': lambda m: getkey([m, 'year']) },
         'link': lambda g: 'http://www.imdb.com/name/nm' + g.personID,
         'style': 'tiny'
     },
@@ -35,7 +35,7 @@ templates = {
     },
     'writer': {
         'grp_title': lambda m: getkey([m,'imdb','writer']),
-        'sort': lambda m: getkey([m, 'year']),
+        'msort': { 'key': lambda m: getkey([m, 'year']) },
         'link': lambda g: 'http://www.imdb.com/name/nm' + g.personID,
         'style': 'tiny'
     },
@@ -52,7 +52,7 @@ templates = {
     },
     'actors': {
         'grp_title': lambda m: getkey([m,'imdb','actors']),
-        'sort': lambda m: getkey([m, 'year']),
+        'msort': { 'key': lambda m: getkey([m, 'year']) },
         'link': lambda g: 'http://www.imdb.com/name/nm' + g.personID,
         'style': 'tiny'
     },
@@ -67,6 +67,7 @@ templates = {
     },
     'rating': {
         'grp_title': lambda m: [getkey([m,'imdb','rating'])],
+        'sort': { 'reverse': True },
     },
     'camera': {
         'grp_title': lambda m: getkey([m,'imdb','cinematographer']),
@@ -232,7 +233,7 @@ def group_out(link, gr,mvs):
     txt = "<tr valign='top'><td style='max-width: 200px'>"+ \
         "<a href='"+link+"' class='hx " + t.get('style', '') + "' name='" +g + "'>" + g + "</a> &nbsp;<sub>" + str(len(mvs)) + \
         "</sub>&nbsp;&nbsp;<br></td><td>\n"
-    for m in sorted(mvs, key=t.get('sort', None)):
+    for m in sorted(mvs, **t.get('msort', {})):
         txt = txt + movie_out(m)
     txt = txt + "</td></tr>\n"
     return txt
@@ -383,7 +384,7 @@ for g in sorted(templates):
     t = templates[g]
     grouped = group(t)
     txt = fread("html/header.html") + stats + links_out() + "<table>"
-    for (gr,mvs) in sorted(grouped.items()):
+    for (gr,mvs) in sorted(grouped.items(), **t.get('sort',{})):
         txt = txt + group_out(mvs.get('link', ''), gr, mvs['mvz']).encode(enc,'replace')
     write_out(txt, OUTPUT+"/"+g+".html")
 log('\n')
