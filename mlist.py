@@ -329,13 +329,12 @@ added = 0
 for t in sorted(dirs):
     if not movie_exists(t):
         added = added + 1
+        log('     + ' + unicode(t, enc, 'replace') + ' -> ')
         m = get_movie(t)
         movies.append(m)
         if not (alfanum(t) in updated):
             updated.append(alfanum(t))
-        log('     + ' + unicode(m['dir'], enc, 'replace') + ' -> ' + 
-                getkey([m,'imdb','title']) + ' (' + 
-                unicode(getkey([m,'imdb','year'])) + ')\n')
+        log(getkey([m,'imdb','title']) + ' (' + unicode(getkey([m,'imdb','year'])) + ')\n')
 log('     = added %d, removed %d (%d)\n' % (added, removed, added - removed))
 # }}}
 # {{{ update pickles
