@@ -297,9 +297,8 @@ def get_movie(t):
 import re
 def runtime(m):
     t = getkey([m,'imdb','runtimes'])[0]
-    r = re.compile('(\d+)')
     try:
-        o = int(r.search(t).group(1))
+        o = int(decolonize(t))
         if o > 20:
             o = (o / 10)*10
     except:
