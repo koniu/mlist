@@ -262,7 +262,7 @@ def get_movie(t):
                 break
         if not ("result" in locals()):
             result = res[0]
-        m['imdb'] = db.get_movie(result.movieID, ('main', 'plot', 'keywords'))
+        m['imdb'] = db.get_movie(result.movieID, ('main', 'plot', 'keywords', 'locations', 'connections', 'taglines', 'awards', 'soundtrack'))
     # get date added
     m['mtime'] = os.stat(DIR+"/"+t)[ST_MTIME]
     return m
