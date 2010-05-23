@@ -180,8 +180,8 @@ def movie_info(m):
     txt = \
           '<table width="100%"><tr valign="top">' +\
           '<td><span id="minfo_title">' + getkey([db, 'title']) + '</span><br>' +\
-          '<a href="director.html#' + dr + '">' + dr + '</a>, ' +\
-          unicode(getkey([db, 'year'])) +\
+          unicode(getkey([db, 'year'])) + ' by ' +\
+          linkify_list(getkey([db, 'director']), 'director.html') +\
           '<br><br><table>' +\
           '<tr valign="top"><td class="hh">writer</td><td>&nbsp;</td><td>' +\
           linkify_list(getkey([db, 'writer']), 'writer.html') + '</td></tr>\n' +\
