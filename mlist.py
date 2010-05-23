@@ -211,7 +211,7 @@ def movie_info(m):
           '<br><tr valign="top"><td class="hh">aka</td><td class="tiny">' +\
           unicode(string.join(getkey([db, 'akas']),"<br>")) + '</td></tr>\n' +\
           "</table>"
-    write_out(txt,fn)
+    write_out(txt.encode(enc,'replace'), fn)
 # }}}
 # {{{ movie_out
 def movie_out(m):
@@ -251,7 +251,7 @@ def links_out():
 # {{{ write_out
 def write_out(s, fn):
     f = open(fn, "w")
-    f.write(s.encode(enc, 'replace'))
+    f.write(s)
     f.close()
 # }}}
 # {{{ movie_exists
@@ -379,7 +379,7 @@ for g in sorted(templates):
     grouped = group(t)
     txt = fread("html/header.html") + stats + links_out() + "<table>"
     for (gr,mvs) in sorted(grouped.items()):
-        txt = txt + group_out(mvs.get('link', ''), gr, mvs['mvz'])
+        txt = txt + group_out(mvs.get('link', ''), gr, mvs['mvz']).encode(enc,'replace')
     write_out(txt, OUTPUT+"/"+g+".html")
 log('\n')
 # }}}
