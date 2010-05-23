@@ -67,13 +67,17 @@ for l in sorted(os.listdir(PICKLE_DIR)):
         movies.append(x)
 log('\n')
 # }}}
-print "%4s | %4s | %-50s | %-50s" % ("YEAR", "YDB", "TITLE", "TITLE_DB")
-print "-------------------------------------------------------------------------------------"
+print "%4s | %4s | %-50s | %-50s | %20s" % ("YEAR", "YDB", "TITLE", "TITLE_DB", "URL_DB")
+print "-"*200
 for m in movies:
     t = unicode(m['title'].lower(), enc, 'replace')
     ty = str(m['year'])
     tdb = getkey([m,'imdb','title']).lower()
     tydb = str(getkey([m,'imdb','year']))
+    if 'imdb' in m:
+        tdburl = 'http://imdb.com/title/tt' + str(m['imdb'].movieID)
+    else:
+        tdburl = ''
     if (t != tdb) or (ty != tydb):
-        print "%-4s | %-4s | %-50s | %-50s" % (ty, tydb, t, tdb)
+        print "%-4s | %-4s | %-50s | %-60s | %20s" % (ty, tydb, t, tdb, tdburl)
 # vim: foldmethod=marker:filetype=python:expandtab:tabstop=4:shiftwidth=4:encoding=utf-8:textwidth=80
