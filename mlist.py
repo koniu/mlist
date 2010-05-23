@@ -58,6 +58,7 @@ templates = {
     },
     'music': {
         'grp_title': lambda m: getkey([m,'imdb','music']),
+        'link': lambda g: 'http://www.imdb.com/name/nm' + g.personID,
         'style': 'tiny'
     },
    'producer': {
