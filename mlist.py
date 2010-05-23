@@ -26,14 +26,17 @@ templates = {
     'director': {
         'grp_title': lambda m: getkey([m,'imdb','director']),
         'sort': lambda m: getkey([m, 'year']),
+        'link': lambda g: 'http://www.imdb.com/name/nm' + g.personID,
         'style': 'tiny'
     },
     'genre': {
         'grp_title': lambda m: getkey([m,'imdb','genres']),
+        'link': lambda g: 'http://www.imdb.com/genre/' + g,
     },
     'writer': {
         'grp_title': lambda m: getkey([m,'imdb','writer']),
         'sort': lambda m: getkey([m, 'year']),
+        'link': lambda g: 'http://www.imdb.com/name/nm' + g.personID,
         'style': 'tiny'
     },
     'country': {
@@ -50,6 +53,7 @@ templates = {
     'actors': {
         'grp_title': lambda m: getkey([m,'imdb','actors']),
         'sort': lambda m: getkey([m, 'year']),
+        'link': lambda g: 'http://www.imdb.com/name/nm' + g.personID,
         'style': 'tiny'
     },
     'music': {
@@ -58,6 +62,7 @@ templates = {
     },
    'producer': {
        'grp_title': lambda m: getkey([m,'imdb','producer']),
+        'link': lambda g: 'http://www.imdb.com/name/nm' + g.personID,
         'style': 'tiny'
     },
     'rating': {
@@ -65,10 +70,12 @@ templates = {
     },
     'camera': {
         'grp_title': lambda m: getkey([m,'imdb','cinematographer']),
+        'link': lambda g: 'http://www.imdb.com/name/nm' + g.personID,
         'style': 'tiny'
     },
     'tags': {
         'grp_title': lambda m: getkey([m,'imdb','keywords']),
+        'link': lambda g: 'http://www.imdb.com/keyword/' + g,
         'style': 'tiny'
     },
     'runtime': {
@@ -141,10 +148,14 @@ def group(key):
     for m in movies:
         for g in key['grp_title'](m):
             if not(g in grouped):
-                grouped[g] = [m]
+                grouped[g] = {}
+                grouped[g]['mvz'] = [m]
+                if g != "~":
+                    grouped[g]['link'] = key.get('link', lambda g: "")(g)
+                #grouped[g] = { 'link': key.get('link', lambda g: "")(g), 'mvz': [m] }
             else:
-                if not (m in grouped[g]):
-                    grouped[g].append(m)
+                if not (m in grouped[g].get('mvz',[])):
+                    grouped[g]['mvz'].append(m)
     return grouped
 # }}}
 # {{{ linkify_list
@@ -213,10 +224,10 @@ def movie_out(m):
     return a
 # }}}
 # {{{ group_out 
-def group_out(gr,mvs):
+def group_out(link, gr,mvs):
     g = unicode(gr)
     txt = "<tr valign='top'><td style='max-width: 200px'>"+ \
-        "<a class='hx " + t.get('style', '') + "' name='" +g + "'>" + g + "</a> &nbsp;<sub>" + str(len(mvs)) + \
+        "<a href='"+link+"' class='hx " + t.get('style', '') + "' name='" +g + "'>" + g + "</a> &nbsp;<sub>" + str(len(mvs)) + \
         "</sub>&nbsp;&nbsp;<br></td><td>\n"
     for m in sorted(mvs, key=t.get('sort', None)):
         txt = txt + movie_out(m)
@@ -365,7 +376,7 @@ for g in sorted(templates):
     grouped = group(t)
     txt = fread("html/header.html") + stats + links_out() + "<table>"
     for (gr,mvs) in sorted(grouped.items()):
-        txt = txt + group_out(gr,mvs)
+        txt = txt + group_out(mvs.get('link', ''), gr, mvs['mvz'])
     write_out(txt, OUTPUT+"/"+g+".html")
 log('\n')
 # }}}
