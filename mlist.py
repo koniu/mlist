@@ -15,6 +15,7 @@ templates = {
     },
     'date added': {
         'grp_title': lambda m: [date.fromtimestamp(m['mtime']).isoformat()],
+        'sort': { 'reverse': True },
     },
     'year': {
         'grp_title': lambda m: [m['year']], 
