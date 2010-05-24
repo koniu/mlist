@@ -16,6 +16,7 @@ templates = {
     'date added': {
         'grp_title': lambda m: [date.fromtimestamp(m['mtime']).isoformat()],
         'sort': { 'reverse': True },
+        'style': 'tiny'
     },
     'year': {
         'grp_title': lambda m: [m['year']], 
@@ -23,6 +24,7 @@ templates = {
     },
     'language': {
         'grp_title': lambda m: getkey([m,'imdb','languages']),
+        'link': lambda g: 'http://www.imdb.com/Sections/Languages/' + g,
     },
     'director': {
         'grp_title': lambda m: getkey([m,'imdb','director']),
@@ -42,13 +44,16 @@ templates = {
     },
     'country': {
         'grp_title': lambda m: getkey([m,'imdb','countries']),
+        'link': lambda g: 'http://www.imdb.com/Sections/Countries/' + g,
         'style': 'tiny'
     },
     'color': {
        'grp_title': lambda m: getkey([m,'imdb','color']),
+        'style': 'tiny'
     },
     'company': {
         'grp_title': lambda m: getkey([m,'imdb','production company']),
+        'link': lambda g: 'http://www.imdb.com/company/co' + g.companyID,
         'style': 'tiny'
     },
     'actors': {
