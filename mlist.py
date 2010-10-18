@@ -92,8 +92,8 @@ templates = {
     },
     'locations': {
         'grp_title': lambda m: getkey([m,'imdb','locations']),
-        'grp_title_mangler': lambda g: decolonize(g),
-        'link': lambda g: 'http://www.imdb.com/search/title?locations=' + g,
+        'grp_title_mangler': lambda g: reverse_location(g),
+        'link': lambda g: 'http://www.imdb.com/search/title?locations=' + reverse_location(g),
         'style': 'tiny'
     },
 }
@@ -165,6 +165,14 @@ def decolonize(s):
         v = s
     return v
 # }}}
+# {{{ reverse_location
+def reverse_location(s):
+    sections = string.split(decolonize(s),', ')
+    r = []
+    for l in sections:
+        r.insert(0, l)
+    return ", ".join(r)
+# }}}
 # {{{ group
 def group(key):
     grouped = {}
@@ -230,7 +238,7 @@ def movie_info(m):
           '<br><tr valign="top"><td class="hh">aka</td><td class="tiny">' +\
           unicode(string.join(getkey([db, 'akas']),"<br>")) + '</td></tr>\n' +\
           '<br><tr valign="top"><td class="hh">locations</td><td class="tiny">' +\
-          linkify_list(getkey([db, 'locations']),'locations.html','<br>',decolonize) + '</td></tr>\n' +\
+          linkify_list(getkey([db, 'locations']),'locations.html','<br>', reverse_location) + '</td></tr>\n' +\
           "</table>"
     write_out(txt.encode(enc,'replace'), fn)
 # }}}
