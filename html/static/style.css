@@ -12,18 +12,35 @@ body {
 
 #minfo {
     display: none;
-    opacity: 0.9;
 	font-size: 7.5pt;
 	font-weight: normal;
 	position: fixed;
-	top: 5px; bottom:5px; right:5px;
+	top: 50px; bottom:0px; right:0px;
 	left: 500px;
-	border: solid 1px #333;
 	padding: 10px;
-	background: black;
+	background: #080808;
 	overflow: auto;
 	color: #7D7762;
 	line-height: 120%;
+	z-index:10
+}
+
+#cpl {
+	position: fixed;
+	top: 0px; right:0px; left: 0px;
+	height: 40px;
+	padding: 3px;
+	z-index:10;
+	background: #080808;
+}
+
+#content {
+	position: fixed;
+	top: 45px; right:0px; left: 0px;
+	bottom: 0px;
+	padding: 5px;
+	overflow: auto;
+	z-index: 5;
 }
 
 #minfo_title {

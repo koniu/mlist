@@ -4,7 +4,7 @@ DIR = "/mnt/movies/movies"
 DIR = "/tmp/mvz"
 DIR = "/home/koniu/mvz.all"
 DIR = "/home/koniu/mvz"
-DIR = "/mnt/zombie/shares/movies"
+DIR = "/home/koniu/data/movies"
 PICKLES = "pickles"
 OUTPUT = "output"
 
@@ -250,7 +250,7 @@ def movie_out(m):
     else:
         tt = ""
         url = ''
-    a = '<a href="%s" onfocus="showinfo(\'%s\')" onmouseover="showinfo(\'%s\')" onmouseout="hideinfo()">%s</a>\
+    a = '<a href="%s" onfocus="showinfo(\'%s\'); $(this).parent().css(\'background\', \'#090909\')"  onmouseover="showinfo(\'%s\'); $(this).parent().css(\'background\',    \'#090909\')" onmouseout="hideinfo();    $(this).parent().css(\'background\',\'#000000\')" onblur="hideinfo(); $(this).parent().css(\'background\',\'#000000\')">%s</a>\
         <sub>%s</sub><br>\n' % (url, tt, tt, unicode(m['title'], enc,
         'replace'),  m['year'])
     return a
@@ -258,7 +258,7 @@ def movie_out(m):
 # {{{ group_out 
 def group_out(link, gr,mvs):
     g = unicode(gr)
-    txt = "<tr valign='top'><td style='max-width: 200px'>"+ \
+    txt = "<tr valign='top'><td style='max-width: 50px'>"+ \
         "<a href='"+link+"' class='hx " + t.get('style', '') + "' name='" +g + "'>" + g + "</a> &nbsp;<sub>" + str(len(mvs)) + \
         "</sub>&nbsp;&nbsp;<br></td><td>\n"
     for m in sorted(mvs, **t.get('msort', {})):
@@ -410,7 +410,7 @@ for g in sorted(templates):
     log(g + ' ')
     t = templates[g]
     grouped = group(t)
-    txt = fread("html/header.html") + stats + links_out() + "<table>"
+    txt = fread("html/header.html") + stats + links_out() + "</div><div id=\"content\"><table width='100%'>"
     for (gr,mvs) in sorted(grouped.items(), **t.get('sort',{})):
         txt = txt + group_out(mvs.get('link', ''), gr, mvs['mvz']).encode(enc,'replace')
     write_out(txt, OUTPUT+"/"+g+".html")
